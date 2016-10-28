@@ -1,0 +1,68 @@
+@charset "utf-8";
+/* CSS Document */
+
+body, div, span, applet, object, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dd, dl, dt, li, ol, ul, fieldset, form, label, legend, table, caption {
+	margin:0px;
+	padding:0px;
+	border:0px;
+}
+body{
+    background:url(../loginimg/body_02.jpg) repeat-x;
+}
+
+
+/*主体开始*/
+
+.box{
+	width:100%;
+	margin:0 auto;
+}
+.min{
+    height:auto;
+	margin:0 auto;
+}
+
+.top{
+    width:1002px;
+	margin:0 auto;
+}
+
+.content{
+    width:1002px;
+	margin:0 auto;
+}
+
+.foot{
+    float:left; 
+    width:100%;
+	background-color:#FFFFFF;
+}
+
+
+
+
+
+/*头部开始*/
+.Top{
+	width:1002px;
+	height:99px;
+}
+
+
+
+
+
+/*脚部开始*/
+.foot_box{
+    width:1002px;
+	margin:0 auto;
+	height:138px;
+	padding-top:22px;
+	text-align:center;
+	color:#757575;
+	font-size:12px;	
+}
+.foot_box a{
+	color:#757575;
+	font-size:12px;	
+}

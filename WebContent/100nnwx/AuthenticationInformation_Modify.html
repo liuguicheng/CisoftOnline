@@ -1,0 +1,72 @@
+<!DOCTYPE>
+<html>
+<head>
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+<title>认证信息-修改手机号码</title>
+<!--<link href="js/jquerymobile/jquery.mobile-1.4.0.min.css" rel="stylesheet" type="text/css" />-->
+<link href="js/jquerymobile/zt/jquery.mobile-1.4.0.min.css" rel="stylesheet" type="text/css" />
+<link href="css/SecurityCenter.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="js/jquerymobile/jquery.mobile-1.4.0.min.js"></script>
+
+</head>
+<body>
+	<div data-role="page" style="background:#FFF;">
+		<div data-role="header" class="Top" style=" background:#8bc563; color:#FFF;text-shadow: 0 0 0 #eee;">
+        <div class="Top_return"><a href="UserCenter.html" target="_self"><img src="img/return_button.gif" width="57" height="24"></a></div>
+        认证信息
+        <div class="Top_user_center"><a href="ShoppingCart.html" target="_self"><img src="img/user_center.gif" width="32" height="30"></a></div>
+        </div>
+		<div role="main" class="ui-content">
+			<form action="weixin_login" method="post" id="form1" name="form1">
+				<table style="width: 100%;">					
+					<tr>
+						<td>
+                        	<label for="text-1" class="Mian_Font"><span>之前绑定的手机号码</span></label>
+                            <input type="text" name="text-1" id="text-1" value="">
+						</td>
+					</tr>
+                    <tr>
+						<td>
+                        	<table class="Mian_rzxx_mian" cellpadding="0" cellspacing="0">
+                            	<tr>
+                                    <td><span>新的手机号码</span></td>
+                                    <td width="80"></td>
+                                </tr>
+                            	<tr>
+                                    <td><input style="height:14px;" type="text" name="text-1" id="text-1" value=""></td>
+                                    <td width="80"><a style="background:#8ac463; color:#FFF; font-weight:100; font-family:'黑体'; font-size:14px; font-weight:bold; text-shadow : 0 0 1px #000; margin-left:10px; height:16px; line-height:16px;" id="btnlogin" href="order_qr.html" data-role="button">发送短信验证码</a></td>
+                                </tr>
+                            </table>
+						</td>
+					</tr>
+                    <tr>
+						<td>
+                        	<table class="Mian_rzxx_mian" cellpadding="0" cellspacing="0">
+                            	<tr>
+                                    <td><span>短信中的验证码</span></td>
+                                    <td width="80"></td>
+                                </tr>
+                            	<tr>
+                                    <td><input style="height:14px;" type="text" name="text-1" id="text-1" value=""></td>
+                                    <td width="80"><a style="background:#999; color:#FFF; font-weight:100; font-family:'黑体'; font-size:14px; font-weight:bold; text-shadow : 0 0 1px #000; margin-left:10px; height:16px; line-height:16px;" id="btnlogin" href="order_qr.html" data-role="button">59秒后重新获取</a></td>
+                                </tr>
+                            </table>
+						</td>
+					</tr>
+                    <tr>
+                    	<td>
+							<a style="background:#8ac463; color:#FFF; font-weight:100; font-family:'黑体'; font-size:18px; font-weight:bold; text-shadow : 0 0 1px #000; " id="btnlogin" href="order_qr.html" data-role="button">绑定</a>
+                        </td>
+					</tr>
+					
+				</table>
+			</form>
+		</div>
+		<!-- <div data-role="footer">
+		</div> -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+@charset "utf-8";
+/* CSS Document */
+
+#Mian{
+	width:100%;
+	height:100px;
+}
+#MianRight{
+	float:left;
+	display:inline;
+	border-top:#d5d5d5 solid 1px;
+	overflow-y:auto;
+}
+
+#MianRight_z{
+	width:990px;
+	height:570px;
+	float:left;
+	margin-top:55px;
+	margin-left:25px;
+	border-bottom:2px solid #d5d5d5;
+	background:url(../images/bj_14.jpg) repeat-x;
+}
+	
+
+#MianRight_t{
+	width:972px;
+	height:565px;
+	padding-right:10px;
+	border-top:1px solid #CCC;
+	border-right:1px solid #CCC;
+	}
+		
+	
+#MianRight_l{
+	width:196px;
+	height:566px;
+	float:left;
+	background:url(../images/jfz_06.gif) no-repeat;
+}
+
+
+#MianRight_dh{
+	width:196px;
+	height:566px;
+}
+
+
+
+#MianRight_sdmjf{
+	width:196px;
+	height:64px;
+}
+
+#MianRight_sdmjf ul{
+margin:0 0;
+padding:0 0;
+list-style-type:none;
+padding-left:40px;
+}
+
+#MianRight_sdmjf ul li{
+display:inline;
+line-height:64px;
+margin:0 30px;
+}
+
+#MianRight_sdmjf ul li a{
+color:#990000;
+text-decoration:none; /*--文字下划线：没有--*/
+
+}
+#MianRight_sdmjf ul li a:hover{
+color:#000000;
+}
+
+
+#MianRight_r{
+	width:749px;
+	height:566px;
+	float:left;
+	margin-left:13px;
+}
+		
+	
+#MianRight_rt{
+	width:743px;
+	height:169px;
+	margin-top:5px;
+    background:url(../images/jf_ys_09.gif) no-repeat;
+	
+}
+		
+#MianRight_rf{
+	width:750px;
+	height:355px;
+	margin-top:10px;
+}
+#MianRight_rl{
+	width:417px;
+	height:329px;
+	float:left;
+
+}
+#MianRight_rr{
+	width:316px;
+	height:345px;
+	float:right;
+
+}
+#MianRight_rll{
+	width:417px;
+	height:195px;
+	background:url(../images/jf1_13.gif) no-repeat;
+}
+#MianRight_rlll{
+	width:417px;
+	height:123px;
+	margin-top:10px;
+	background:url(../images/jf2_22.gif) no-repeat;
+}
+#MianRight_rrt{
+	width:316px;
+	height:222px;
+	background:url(../images/jf3_15.gif) no-repeat;
+}
+#MianRight_rrf{
+	width:315px;
+	height:123px;
+	margin-top:10px;
+	background:url(../images/jf4_27.gif) no-repeat;
+}

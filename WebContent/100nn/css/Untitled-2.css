@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+border:none;
+}
+.com{
+width:796px;
+height:298px;
+/* overflow:hidden; */
+position:relative;
+}
+.com ul{
+font-size:0;
+}
+.com ul li{
+vertical-align:bottom;
+height:100%;
+overflow:hidden;
+float:left;
+vertical-align:bottom;
+list-style:none;
+overflow:hidden;
+}
+.com ol{
+position:absolute;
+right:0;
+bottom:20px;
+z-index:10;
+list-style:none;
+height: 2px;
+margin-right: 12px;
+}
+.com ol li{
+width:15px;
+background:white;
+border:1px solid #9fb524;
+border-radius:10px;
+color:#9fb524;
+cursor:pointer;
+float:left;
+font:12px Arial;
+height:15px;
+margin:2px 3px;
+text-align:center;
+}
+.com ol li.on{height:19px;
+width:19px;
+background:#9fb524;
+border:1px solid #EEEEEE;
+color:#FFFFFF;
+font-size:16px;
+font-weight:bold;
+line-height:19px;
+margin:0 3px;
+}
+

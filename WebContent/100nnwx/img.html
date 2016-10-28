@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#thumbs {position: relative; width: 895px; padding: 10px; }
+.imgbox {position: absolute; border: 1px red solid; width: 300px; height: 320px;}
+#page_nav {clear: both; text-align: center; }
+#page_loading {display: none; background: #111111; color:red; opacity: 0.7; 
+height: 60px; width: 220px;  padding: 10px; position: absolute; bottom: -50px; left: 330px; }
+</style>
+</head>
+<body>
+<div id="content">
+    <!-- 包含所有图片的容器 -->
+    <div id="thumbs">
+        <!-- 各个图片的容器 -->
+        <!-- <div class="imgbox" ></div> -->
+<!--         <div class="imgbox"></div>
+        <div class="imgbox"></div>
+        <div class="imgbox"></div>
+        <div class="imgbox"></div> -->
+    </div>
+</div>
+
+<div id="page_nav">
+    <a href="">下一页</a>
+    <input type="text" style="width: 1000px;" id="hrefid" value="wxcommodity_querycommdityListajax?commodity.rows=10&commodity.page=">
+    <input type="text" id="pageid" value="0">
+</div>
+<div id="page_loading">
+    <span>给力加载中……</span>
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="js/jquery.masonry.min.js" ignoreapd="1"></script>
+<script type="text/javascript" src="js/jquery.infinitescroll.min.js" ignoreapd="1"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	 // #thumbs 为包含所有图片的容器
+    var $container = $('#thumbs');
+    // 使用 imagesLoaded() 修复该插件在 chrome 下的问题
+    $container.imagesLoaded(function(){
+      $container.masonry({
+        // 每一列数据的宽度，若所有栏目块的宽度相同，可以不填这段
+        columnWidth: 279,
+        // .imgbox 为各个图片的容器
+        itemSelector : '.imgbox'
+      });
+    });
+    // 隐藏正在加载模块
+    $("#page_loading").hide("slow");
+  //初始化 sentIt
+    var sentIt = true;
+    nextHref = $("#hrefid").val();
+	var rowid=$("#pageid").val();
+	nextHref=nextHref+rowid;
+	
+ // Ajax 翻页
+    $.ajax( {
+        url: nextHref,
+        type: "POST",
+        beforeSend: function(){sentIt = false; }, // 触发了一次 Ajax 分页时把 sentIt 设为 false
+        success: function(data) {
+        	$("#pageid").val(parseInt(rowid)+1);
+        	 result = $("#thumbs");
+        	$.each(data.rows, function (i, item) {
+        		var imgdiv="<div class=\"imgbox\" ><img src=../imgss.jsp?file="+item.c_sltimg+"/></div>";
+   			      result.append(imgdiv);
+        	});
+        	$("#hrefid").val("wxcommodity_querycommdityListajax?commodity.rows=10&commodity.page=");
+        	$newElems =result;
+        	// 把新的内容设置为透明
+            $newElems = result.css({ opacity: 0 });
+            $newElems.imagesLoaded(function(){
+                $container.masonry( 'appended', $newElems, true );
+                // 渐显新的内容
+                $newElems.animate({ opacity: 1 });
+                // 隐藏正在加载模块
+                $("#page_loading").hide("slow");
+            });
+
+        },
+complete: function(){setTimeout(sentIt = true, 600); } // 完成 Ajax 请求后重新设 sentIt 为 true
+    });
+
+
+// 给浏览器窗口绑定 scroll 事件
+$(window).bind("scroll",function(){
+	if($("#pageid").val()=="-1"){
+		 $("#page_loading span").text("木有了噢，最后一页了！");
+         $("#page_loading").show("slow");
+	}else{
+    // 判断窗口的滚动条是否接近页面底部，加入 sentIt 判断，当触发一次 Ajax 分页时把 sentIt 设为 false，禁止触发多余的 Ajax 请求
+    if( $(document).scrollTop() + $(window).height() > $(document).height() - 30  && sentIt ) {
+        // 判断下一页链接是否为空
+        if( nextHref != undefined ) {
+        	 nextHref = $("#hrefid").val();
+        	var rowid=$("#pageid").val();
+        	nextHref=nextHref+rowid;
+            // 显示正在加载模块
+            $("#page_loading").show("slow");
+         // Ajax 翻页
+            $.ajax( {
+                url: nextHref,
+                type: "POST",
+                beforeSend: function(){sentIt = false; }, // 触发了一次 Ajax 分页时把 sentIt 设为 false
+                success: function(data) {
+                	$("#pageid").val(parseInt(rowid)+1);
+                	 result = $("#thumbs");
+                	 if(data.rows==""){
+                		 $("#pageid").val("-1");
+                		 $("#page_loading span").text("木有了噢，最后一页了！");
+                	 }else{
+                		 $.each(data.rows, function (i, item) {
+                     		var imgdiv="<div class=\"imgbox\" ><img src=../imgss.jsp?file="+item.c_sltimg+"/></div>";
+             			      result.append(imgdiv);
+                     	});
+                     	$("#hrefid").val("wxcommodity_querycommdityListajax?commodity.rows=10&commodity.page=");
+                         // 把新的内容设置为透明
+                         $newElems = result;
+                         $newElems = result.css({ opacity: 0 });
+                         $newElems.imagesLoaded(function(){
+                             $container.masonry( 'appended', $newElems, true );
+                             // 渐显新的内容
+                             $newElems.animate({ opacity: 1 });
+                             // 隐藏正在加载模块
+                             $("#page_loading").hide("slow");
+                         }); 
+                	 }
+                	
+
+                },
+        complete: function(){setTimeout(sentIt = true, 600); } // 完成 Ajax 请求后重新设 sentIt 为 true
+            });
+        } else {
+            $("#page_loading span").text("木有了噢，最后一页了！");
+            $("#page_loading").show("fast");
+            setTimeout("$('#page_loading').hide()",1000);
+            setTimeout("$('#page_loading').remove()",1100);
+        }
+    }
+	}
+});
+});
+</script>
+</html>

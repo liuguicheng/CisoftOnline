@@ -1,0 +1,23 @@
+@charset "utf-8";
+/* CSS Document */
+
+#Foot{
+	width:100%;
+	height:36px;
+	line-height:36px;
+	text-align:center;
+	color:#949494;
+	background:url(../images/foot_bj.gif) repeat-x;
+}
+#Foot a:link{
+	color:#949494;
+	text-decoration:underline;
+}
+#Foot a:visited{
+	color:#949494;
+	text-decoration:underline;
+}
+#Foot a:hover{
+	color:#F00;
+text-decoration:underline;
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+   <filter>
+    <filter-name>OpenSessionInView</filter-name>
+    <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>OpenSessionInView</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:beans.xml</param-value>
+  </context-param>
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <welcome-file-list>
+    <welcome-file>100nnPc20/index.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>Kaptcha</servlet-name>
+    <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+    <init-param>
+      <param-name>kaptcha.image.width</param-name>
+      <param-value>68</param-value>
+    </init-param>
+    <init-param>
+      <description>Height in pixels of the kaptcha image. </description>
+      <param-name>kaptcha.image.height</param-name>
+      <param-value>38</param-value>
+    </init-param>
+    <init-param>
+      <description>The size of the font to use. </description>
+      <param-name>kaptcha.textproducer.font.size</param-name>
+      <param-value>22</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Kaptcha</servlet-name>
+    <url-pattern>/kaptcha.jpg</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>toHtml</display-name>
+    <servlet-name>toHtml</servlet-name>
+    <servlet-class>com.cisoft.servlet.toHtml</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>toHtml</servlet-name>
+    <url-pattern>/web/tohtml</url-pattern>
+  </servlet-mapping>
+</web-app>

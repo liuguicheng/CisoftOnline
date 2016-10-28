@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* CSS Document */
+
+#Mian{
+	width:100%;
+	height:100px;
+}
+#MianRight{
+	width:100%;
+	float:left;
+	display:inline;
+	border-top:#d5d5d5 solid 1px;
+	overflow-y:auto;
+}
+.MianRight_t{
+	width:232px;
+	height:93px;
+	float:left;
+	background:url(../images/wk_s.gif) no-repeat;
+	text-align:center;
+	padding-top:10px;
+	display:inline;
+	margin:10px 0 0 10px;
+}
+.MianRight_s{
+	width:232px;
+	height:93px;
+	float:left;
+	background:url(../images/wk_t.gif) no-repeat;
+	text-align:center;
+	padding-top:10px;
+	display:inline;
+	margin:10px 0 0 10px;
+}
+#MianRight_top{
+	width:100%;
+	height:5px;
+	background:url(../../frame/images/mian_top.gif) repeat-x #FFF;
+}

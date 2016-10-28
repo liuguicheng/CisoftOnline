@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* CSS Document */
+
+#Mian{
+	width:100%;
+	height:100px;
+}
+#MianRights{
+	width:100%;
+	float:left;
+	display:inline;
+	border-top:#d5d5d5 solid 1px;
+	overflow-y:hidden;
+	background:url(../images/index_x.gif) repeat-x #f2f2f2;
+}
+#MianRightMs{
+	width:830px;
+	margin:0 auto;
+	padding-top:30px;
+}
+#MianRightM_nav{
+	width: 630px;
+height: 190px;
+margin: 0 auto;
+}
+.MianRightM_navButton{
+	width:194px;
+	height:190px;
+	display:inline;
+	float:left;
+	margin-left:10px;
+}
+#MianRightM_img{
+	width:830;
+	height:423px;
+	background:url(../images/index_bj.jpg) no-repeat;
+}
+
+

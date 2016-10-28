@@ -1,0 +1,8 @@
+.nav_img_00{ color:#05819A; width:80px; height:27px; line-height:27px; text-align:center; float:left; font-size:18px; font-weight:bold; padding-top:10px;}
+/*.cpyc_box{width:830px;padding-bottom:20px;}*/
+.zp_box{width:850px;}
+.cpyc_box{width:520px;padding-bottom:20px;float:left;}
+.cpyc_r{background:url(../images/lxwm.jpg) no-repeat;display:block;width:224px;height:420px;float:left;margin-left:25px;margin-top:2%;}
+.cpyc_r ul{margin-top:100px;margin-left:35px;margin-right:25px;}
+.cpyc_r ul li{list-style:none;display:block;font-family: "宋体";font-size:15px;line-height:22px;border-bottom-width: 1px;border-bottom-style: dotted;height:60px;margin-top:11px;border-bottom-color: #05819a;}
+.cpyc_r ul li span{font-weight:bold;margin-top:11px;font-weight: bold;font-size: 16px;}

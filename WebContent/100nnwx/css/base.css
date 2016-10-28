@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	margin:0;
+	padding:0;
+	overflow-x:hidden;
+	overflow-y:auto;
+	position:relative;
+	background:#f1f1f1;
+}
+.clear{
+	display:block;
+	visibility:hidden;
+	clear:both;
+}

@@ -1,0 +1,154 @@
+@charset "utf-8";
+/* CSS Document */
+#Mian{
+	width:100%;
+	min-height:400px;
+}
+#MianRight{
+	width:100%;
+	min-height:300px;
+	float:left;
+	display:inline;
+	border-top:#d5d5d5 solid 1px;
+}
+#MianRight_mian{
+	width:100%;
+	height:5px;
+	background:#FFF;
+	overflow:auto;
+}
+.MianRight_mianT{
+	width:98%;
+	/*height:300px;*/
+	margin:0 auto 0;
+	padding-top:10px;
+}
+.MianRight_mianTitle{
+	width:100%;
+	height:32px;
+	line-height:32px;
+	font-size:16px;
+	font-weight:bold;
+}
+.MianRight_mianTitle_userNav{
+	width:100%;
+	height:31px;
+	line-height:31px;
+	background:#f6f6f6;
+	border-bottom:#74a702 solid 1px;
+}
+.MianRight_mianTitle_userNavTitle{
+	width:90px;
+	height:31px;
+	line-height:31px;
+	text-align:center;
+	display:inline;
+	float:left;
+	background:#74a702;
+	color:#FFF;
+}
+.MianRight_mianTitle_userNavTitle a{
+	display:block;
+	width:90px;
+	height:31px;
+	line-height:31px;
+	text-align:center;
+	background:#f2f6f7;
+}
+.MianRight_mianTitle_userNavTitle a:link{
+	color:#5b8400;
+	text-decoration:none;
+}
+.MianRight_mianTitle_userNavTitle a:visited{
+	color:#5b8400;
+	text-decoration:none;
+}
+.MianRight_mianTitle_userNavTitle a:hover{
+	color:#FFF;
+	text-decoration:none;
+	background:#8bcc00;
+}
+.MianRight_mianTitle_userNavK{
+	width:1px;
+	height:12px;
+	line-height:12px;
+	display:inline;
+	float:left;
+	background:#a9a2a2;
+	margin-top:10px;
+}
+.MianRight_mianTitlesNavBJn{
+	width:656px;
+	height:50px;
+	line-height:50px;
+	font-size:16px;
+	color:#000;
+	padding-left:20px;
+}
+.MianRight_mianTitlesNavBJn_title{
+	width:100%;
+	height:48px;
+	line-height:48px;
+	font-size:18px;
+	font-weight:bold;
+}
+.MianRight_mianTitlesNavBJn_title img{
+	margin-left:10px;
+}
+.MianRight_mianTitlesNavBJn_mian{
+	width:100%;
+	height:30px;
+	line-height:30px;
+	font-size:12px;
+}
+.MianRight_mianTitlesNavBJn_mianSpantitle{
+	font-weight:bold;
+	font-size:12px;
+}
+.MianRight_mianTitlesNavBJn_mianSpangh{
+	font-size:12px;
+	margin-left:20px;
+}
+.MianRight_mianTitlesNavBJn_mianSpangh a:link{
+	color:#a3c113;
+	text-decoration:none;
+}
+.MianRight_mianTitlesNavBJn_mianSpangh a:visited{
+	color:#a3c113;
+	text-decoration:none;
+}
+.MianRight_mianTitlesNavBJn_mianSpangh a:hover{
+	color:#a3c113;
+	text-decoration:none;
+}
+.coreMian_telValidation_kk{
+	width:100%;
+	height:30px;
+	margin-top:11px;
+	margin-left:95px;
+}
+.coreMian_telValidation_kk1 input{
+	width:100px;
+	height:32px;
+	float:left;
+	border:solid 1px #cbcbcb;
+}
+.coreMian_telValidation_yzm1{
+	width:67px;
+	height:32px;
+	margin-left:17px;
+	float:left;
+	margin-top:2px;
+	background:url(../images/h_33.gif) no-repeat;
+}
+.coreMian_telValidation_yzmz{
+	width:90px;
+	height:20px;
+	color:#6fb215;
+	float:left;
+	font-size:12px;
+	line-height:35px;
+	text-align:center;
+	margin-left:12px;
+}
+	

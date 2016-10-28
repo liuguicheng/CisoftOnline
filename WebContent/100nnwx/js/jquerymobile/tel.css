@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+
+.Pay_text{
+	font-size:18px;
+	line-height:18px;
+	font-weight:bold;
+	font-family:"微软雅黑";
+}
+.Pay_textks{
+	font-size:14px;
+	line-height:24px;
+	font-weight:bold;
+	font-family:"微软雅黑";
+	/*color:#ff8500;*/
+}
+.Pay_ico{
+	width:100px;
+	height:24px;
+	position:absolute;
+	right:0;
+	top:0px;
+	/*background:url(../../img/ico.jpg) no-repeat;*/
+}
+.successful_ico{
+	width:150px;
+	height:45px;
+	margin:0 auto;
+	text-align:center;
+}
+.successful_ico_left{
+	width:65px;
+	height:45px;
+	float:left;
+	background:url(../../img/cg_ico_t.png) no-repeat;
+}
+.successful_ico_right{
+	width:85px;
+	height:45px;
+	line-height:40px;
+	float:right;
+	text-align:center;
+	font-family:"黑体";
+	font-weight:bold;
+	font-size:20px;
+}

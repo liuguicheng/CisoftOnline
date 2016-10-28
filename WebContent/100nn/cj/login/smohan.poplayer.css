@@ -1,0 +1,67 @@
+@charset "utf-8";
+/* CSS Document */
+/*
+ @ Smohan's PopLayer
+ @ Author: Smohan,水墨寒
+ @ http://www.smohan.net
+ @ 2013-05-30
+*/
+
+*{ margin:0; padding:0;}
+html,body{background-image:url(about:blank),background-attachment:fixed;} /*防止图像抖动*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary, time, mark, audio, video {
+margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
+.fl{ float:left;}
+.fr{ float:right;}
+.fn{ float:none;}
+img,button{ border:0 none;}
+
+
+body{ background:url(whiteBg.png) repeat;}
+
+
+header{ display:block; width:980px; height:85px; padding:20px 0px; margin:20px auto;}
+header h3{ height:35px; line-height:35px; font: normal bold 26px/36px Arial,'微软雅黑'; color:#565656; text-shadow:0px 1px rgba(255,255,255,0.35); text-align:center;}
+header h5{ line-height:35px; padding-top:10px; text-align:right;font: normal bold 16px/36px Arial,'微软雅黑'; color:#565656; text-shadow:0px 1px rgba(255,255,255,0.35);}
+header h5 a{ color:#656565; text-decoration:none;}
+
+
+
+article{ width:938px; padding:20px; border:1px solid #cacaca; margin:20px auto; height:auto; position:relative;font: normal bold 14px/26px Arial,'微软雅黑'; color:#565656; text-shadow:0px 1px rgba(255,255,255,0.35);}
+
+article .demo{ display:block; width:120px; height:46px; line-height:46px; text-align:center; background:#09F; color:#fff; text-shadow:0px 1px 0px rgba(153,153,153,1); margin:0 auto; text-decoration:none;}
+
+
+
+/*Smohan'PopLayer*/
+#smohan-poplayer-shadow{ position:fixed; _position:absolute;zoom:1; top:0; left:0; width:100%; height:100%; overflow:hidden; background:rgba(255,255,255,0.8); z-index:499999;}
+#smohan-poplayer{min-width:160px; min-height:36px; width:160px; height:auto; border:8px solid rgba(0,0,0,0.36); background:rgba(255,255,255,0.68);_background:#fff; position:fixed; _position:absolute; top:50%; left:50%; z-index:500001; box-shadow:0px 0px 8px rgba(203,203,203,0.86);}
+#smohan-poplayer .title{ padding:0px 10px; height:36px; line-height:36px; background:#eaeceb; font:normal 600 14px/36px Arial,'宋体'; color:#565656; text-shadow:0px 1px 0px rgba(255,255,255,0.6); position:relative;}
+#smohan-poplayer .title a.close{ display:block; width:36px; height:36px; position:absolute; right:0px; top:0px; text-align:center; font-weight:800; text-decoration:none; color:#565656; font-size:16px;}
+#smohan-poplayer .content{ padding:10px; background:rgba(255,255,255,0.88); font-size:13px; line-height:22px; color:#333333; word-wrap:break-word;}
+
+
+
+
+
+
+
+
+
+/*登录*/
+#pop-login{width:400px; height:310px; line-height:22px; overflow:hidden;}
+#pop-login dl dt{ display:block; width:350px;padding:8px 30px 8px 20px;line-height:36px;}
+#pop-login dl dt label{ display:inline-block; width:60px; text-align:right;}
+#pop-login dl dt input.text{ display:inline-block; width:220px; height:28px; padding:2px 10px; border:1px solid #dcdcdc;}
+#pop-login dl dt button.login{display:inline-block; width:105px; height:40px; line-height:40px; text-align:center; background:#fd4239; color:#fff; font-size:14px; font-weight:600; text-shadow:0px 1px 0px rgba(102,102,102,0.3);}
+#pop-login dl dt a.reg{display:inline-block; width:105px; height:40px; line-height:40px; text-align:center; background:#ff78a1; color:#fff; font-size:14px; font-weight:600; text-shadow:0px -1px 0px rgba(102,102,102,0.3); margin-left:20px; text-decoration:none;}
+#pop-login dl dt button.login:hover,#pop-login dl dt a.reg:hover{ background:#f6271d;}
+#pop-login .footer{width:380px; padding-top:10px; border-top:1px dashed #dcdcdc; margin:20px 0px;}
+#pop-login .footer h3{ line-height:30px;}
+#pop-login .footer h3 .sns_qq{ display:inline-block; height:26px; line-height:26px; padding-left:30px; background:url(sns-login.png) 0px 0px no-repeat; margin-left:10px;}
+#pop-login .footer h3 .sns_sina{ display:inline-block; height:26px; line-height:26px; padding-left:30px; background:url(sns-login.png) 0px -26px no-repeat; margin-left:10px;}

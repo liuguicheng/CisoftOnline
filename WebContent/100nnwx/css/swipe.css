@@ -1,0 +1,10 @@
+.addWrap{width:100%;background:#fff;margin:auto;position:relative;z-index: 1;}
+.addWrap .swipe{height:130px;overflow: hidden;visibility: hidden;position:relative;margin-bottom: 5px;z-index: 2;}
+.addWrap .swipe-wrap{overflow:hidden;position:relative;}
+.addWrap .swipe-wrap > div {float: left;width: 100%;position:relative;}
+
+#position{padding:0;text-align:center;z-index:3;position:absolute; margin-top: -80px;margin-left: 2%;}
+#position li{width:7px;height:7px;margin:0 3px;display:inline-block;-webkit-border-radius:5px;border-radius:5px;background-color:#AFAFAF; opacity: 0.5;}
+#position li.cur{background-color:#FF0000;}
+
+

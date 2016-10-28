@@ -1,0 +1,1345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	
+	<package name="expertselectsystem"  extends="struts-default,json-default,jfreechart-default">
+		<interceptors>
+			<interceptor name="myinterceptor" class="com.cisoft.utils.InterceptorUtils"></interceptor>
+			<interceptor name="qtinterceptor" class="com.cisoft.utils.qtInterceptorUtils"></interceptor>
+			<interceptor-stack name="myinterceptorstack" >
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="myinterceptor"></interceptor-ref>
+			</interceptor-stack>
+			<interceptor-stack name="myqtinterceptorstack" >
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="qtinterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+	
+		<global-results>
+		    <!-- 前端登录超时  -->
+		    <result name="timeout">/index.jsp</result>
+		      <result name="timeout_1">/100nnPc20/index.jsp</result>
+		    <!-- 前端ajax请求时，登录超时 -->
+		    <result name="ajaxtimeout" type="json">
+		        <param name="root">"登录超时,请重新登录"</param>
+		    </result>
+			<result name="nologinweixin">/WEB-INF/pages/weixinlogin.jsp</result>
+			<result name="nologin">/WEB-INF/pages/login.jsp</result>
+			<result name="nologin_1" type="redirectAction">pages_login</result>
+			<result name="sjlogin">/ExpandingBusiness/jsp/login.jsp</result>
+			<result name="noqtlogin">/100nnPc20/index.jsp</result>
+			<result name="qtexit" type="json">
+			    <param name="root">msg</param>
+			</result>
+			<result name="error">/WEB-INF/pages/errorcommon.jsp</result>
+			<result name="select">/WEB-INF/pages/error.jsp</result>
+			<result name="wxlist" type="redirect">
+		       https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxac6fc2bbd219962b&amp;redirect_uri=http://www.100nn.cn/tosq.jsp&amp;response_type=code&amp;scope=snsapi_base&amp;state=${cdbs}#wechat_redirect
+		    </result>
+		</global-results>
+		
+		<global-exception-mappings>
+		    <exception-mapping result="noqtlogin" exception="java.lang.Exception"></exception-mapping>
+			<exception-mapping result="error" exception="java.lang.RuntimeException"></exception-mapping>
+			<exception-mapping result="select" exception="com.cisoft.utils.ExpertSelectException"></exception-mapping>
+		</global-exception-mappings>
+		<action name="templs_*">
+			<result type="dispatcher">/WEB-INF/templ/{1}.jsp</result>
+		</action>
+		<action name="pages_*">
+			<result type="dispatcher">/WEB-INF/pages/{1}.jsp</result>
+		</action>
+		<action name="100nn_*">
+			<result type="dispatcher">/WEB-INF/100nn/{1}.jsp</result>
+		</action>
+		<action name="MovieTickets_*">
+			<result type="dispatcher">/WEB-INF/100nn/MovieTickets/{1}.jsp</result>
+		</action>
+		<action name="Supermarket_*">
+			<result type="dispatcher">/WEB-INF/100nn/Supermarket/{1}.jsp</result>
+		</action>
+		<action name="Supermarket1_*">
+			<result type="dispatcher">/100nnPc20/grzx/{1}.jsp</result>
+		</action>
+	    <action name="cp_*">
+			<result type="dispatcher">/WEB-INF/100nn/cp/{1}.jsp</result>
+		</action>
+		<action name="paypal_*">
+			<result type="dispatcher">/WEB-INF/100nn/paypal/{1}.jsp</result>
+		</action>
+		<!-- 后台管理 -->
+		<action name="user_*" method="{1}" class="com.cisoft.action.UserAction">
+		    <interceptor-ref name="params" />
+		      <interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="success" type="redirectAction">user_toindex</result>
+			<result name="toindex">/WEB-INF/pages/main.jsp</result>
+			<result name="fail">/WEB-INF/pages/login.jsp</result>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.u_id,
+					rows\[\d+\]\.u_name,
+					rows\[\d+\]\.u_zsName,
+					rows\[\d+\]\.role\.rolename,
+					rows\[\d+\]\.u.email,
+					rows\[\d+\]\.uwx_bs,
+					rows\[\d+\]\.tximgurl,
+					rows\[\d+\]\.u_status
+				</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/useroperate.jsp</result>
+			<result name="addView">/WEB-INF/pages/useroperate.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="exit">/WEB-INF/pages/login.jsp</result>	
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="selectlist" type="json">
+				<param name="root">pwdResets</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.name,
+					\[\d+\]\.username,
+					\[\d+\]\.password,
+					\[\d+\]\.flag
+				</param>
+			</result>
+			<result name="reset" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="toupdatebyuser">/WEB-INF/pages/userupdate.jsp</result>
+			<!--商家版－登陆  -->
+			<result name="sjsuccess" type="redirectAction">user_sjindex</result>
+			<result name="sjfail">/ExpandingBusiness/jsp/login.jsp</result>
+			<result name="sjindex">/ExpandingBusiness/jsp/index.jsp</result>
+			<result name="tab">/ExpandingBusiness/jsp/tab.jsp</result>
+			<result name="defaultd">/ExpandingBusiness/jsp/default.jsp</result>
+			<!-- 商家版－系统设置 -->
+			<result name="gosystem">/ExpandingBusiness/jsp/system/systemset.jsp</result>
+			<result name="totestftl" type="freemarker">/ExpandingBusiness/ftl/index.ftl</result>
+			
+		</action>
+		<!-- 收货地址管理 -->
+		<action name="useraddress_*" method="{1}" class="com.cisoft.action.UserAddressAction">
+		      
+			<result name="success">/WEB-INF/pages/main.jsp</result>
+			<result name="fail">/WEB-INF/pages/login.jsp</result>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/useradddressinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/useradddressinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="exit">/WEB-INF/pages/login.jsp</result>	
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="selectlist" type="json">
+				<param name="root">pwdResets</param>
+			</result>
+			<result name="reset" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="qtqueryuseraddress">
+			    /WEB-INF/100nn/Supermarket/UserAddress.jsp
+			</result>
+			<result name="qtqueryuseraddress_1">
+			    /100nnPc20/grzx/address.jsp
+			</result>
+			<result name="toupdatebyuser">/WEB-INF/pages/useradddressinfo.jsp</result>
+			<result name="toadduser" type="json">
+			    <param name="root">useraddress</param>
+			    
+			</result>
+		</action>
+		<!-- 菜单管理 -->
+		<action name="menu_*" method="{1}" class="com.cisoft.action.MenuAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<!-- <param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.menuname,
+					\[\d+\]\.page,
+					\[\d+\]\.parentid
+					\[\d+\]\._parentid
+				</param> -->
+			</result>
+			<result name="addView">/WEB-INF/pages/menusave.jsp</result>
+			<result name="editView">/WEB-INF/pages/menusave.jsp</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="getMenu" type="json">
+				<param name="root">menus</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.menuname,
+					\[\d+\]\.page,
+					\[\d+\]\.pId
+				</param>
+			</result>
+			<result name="tree" type="json">
+				<param name="root">menutrees</param>
+			</result>
+		</action>
+		<!-- 权限管理 -->
+		<action name="role_*" method="{1}" class="com.cisoft.action.RoleAction">
+		    	<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.rolename,
+					rows\[\d+\]\.mark
+				</param>
+				
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/roleoperate.jsp</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="savelimit" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="getLimitByRoleid" type="json">
+				<param name="root">menuss</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.parentid
+				</param>
+			</result>
+		</action>
+		<!-- 备份数据库管理 -->
+		<action name="backups_*" method="{1}" class="com.cisoft.action.BackupsAction">
+		      <interceptor-ref name="params" />
+		      <interceptor-ref name="myinterceptor"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.backupstime,
+					rows\[\d+\]\.filename,
+					rows\[\d+\]\.user\.u_zsName
+				</param>
+			</result>
+			<result name="save" type="json">
+			    <param name="root">result</param>
+			</result>
+		</action>
+	
+	<!-- 供应商管理 -->
+	<action name="gys_*" method="{1}" class="com.cisoft.action.GysAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.g_id,
+					rows\[\d+\]\.g_name,
+					rows\[\d+\]\.g_lxr,
+					rows\[\d+\]\.g_dh,
+					rows\[\d+\]\.g_address,
+					rows\[\d+\]\.g_cp
+				</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/gysinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/gysinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="selectlist" type="json">
+				<param name="root">pwdResets</param>
+				<param name="includeProperties">
+					rows\[\d+\]\.g_id,
+					rows\[\d+\]\.g_name,
+					rows\[\d+\]\.g_lxr,
+					rows\[\d+\]\.g_dh,
+					rows\[\d+\]\.g_address,
+					rows\[\d+\]\.g_cp
+				</param>
+			</result>
+			<result name="toupdatebyuser">/WEB-INF/pages/gysinfo.jsp</result>
+		</action>
+		<!-- 库存管理 -->
+	<action name="storeroom_*" method="{1}" class="com.cisoft.action.StoreroomAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.s_id,
+					rows\[\d+\]\.s_name,
+					rows\[\d+\]\.s_ms,
+					rows\[\d+\]\.s_scbs,
+					rows\[\d+\]\.storehouse\.sh_id,
+					rows\[\d+\]\.storehouse\.sh_name
+				</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/storeroominfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/storeroominfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="querystoreroomlist" type="json">
+			    <param name="root">storeroomlist</param>
+			</result>
+		</action>
+		<!--商品信息管理  -->
+			<!-- 仓库管理 -->
+	<action name="storehouse_*" method="{1}" class="com.cisoft.action.StorehouseAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.sh_id,
+					rows\[\d+\]\.sh_name,
+					rows\[\d+\]\.sh_address,
+					rows\[\d+\]\.sh_ms,
+					rows\[\d+\]\.sh_scbs
+				</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/storehouseinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/storehouseinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="listsuccess" type="json">
+			    <param name="root">stroehomelist</param>
+				<param name="includeProperties">
+					rows\[\d+\]\.sh_id,
+					rows\[\d+\]\.sh_name
+				</param>
+			</result>
+		</action>
+		<!-- 仓库管理 -->
+	<action name="storehouse_*" method="{1}" class="com.cisoft.action.StorehouseAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.sh_id,
+					rows\[\d+\]\.sh_name,
+					rows\[\d+\]\.sh_address,
+					rows\[\d+\]\.sh_ms,
+					rows\[\d+\]\.sh_scbs
+				</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/storehouseinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/storehouseinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="listsuccess" type="json">
+			    <param name="root">stroehomelist</param>
+			</result>
+		</action>
+		<!-- 仓库管理结束 -->
+		<!-- 配送管理 -->
+	<action name="distribution_*" method="{1}" class="com.cisoft.action.DistributionAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.d_id,
+					rows\[\d+\]\.d_name,
+					rows\[\d+\]\.d_ms,
+					rows\[\d+\]\.d_scbs
+				</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/distributioninfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/distributioninfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>
+	<!-- 入库库存管理 -->
+	<action name="stock_*" method="{1}" class="com.cisoft.action.StockAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/addStock.jsp</result>
+			<result name="addView">/WEB-INF/pages/addStock.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>
+		<!-- 商品出库管理 -->
+	<action name="outstock_*" method="{1}" class="com.cisoft.action.OutStockAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/outStock.jsp</result>
+			<result name="addView">/WEB-INF/pages/outStock.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>	
+	<!-- 库存盘点管理 -->
+	<action name="stockinventory_*" method="{1}" class="com.cisoft.action.StockInventoryAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>	
+	<!-- 采购管理 -->
+	<action name="purchase_*" method="{1}" class="com.cisoft.action.PurchaseAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/purchasexq.jsp</result>
+			<result name="addView">/WEB-INF/pages/purchaseinfo.jsp</result>
+			<result name="toupView">/WEB-INF/pages/purchaseupdate.jsp</result>
+			<result name="purchaseeditView" type="json">
+			    <param name="root">purchaseinfo</param>
+			</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="querycommoditysuccess" type="json">
+			    <param name="root">commodity</param>
+			    
+			</result>
+		</action>	
+		
+	<!-- 采购商品管理 -->
+	<action name="purchaseinfo_*" method="{1}" class="com.cisoft.action.PurchaseInfoAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView" type="json">
+			    <param name="root">gys</param>
+			    
+			</result>
+			<result name="addView">/WEB-INF/pages/purchasecommdityinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>	
+			<!-- 采购付款管理 -->
+	<action name="purchasepay_*" method="{1}" class="com.cisoft.action.PurchasePaymentsAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView" type="json">
+			    <param name="root">gys</param>
+			    
+			</result>
+			<result name="editView">/WEB-INF/pages/purchasepay.jsp</result>
+			<result name="addView">/WEB-INF/pages/purchasepay.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>	
+		<!-- 采购收货管理 -->
+	<action name="purchaserece_*" method="{1}" class="com.cisoft.action.PurchaseReceiptAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView" type="json">
+			    <param name="root">gys</param>
+			    
+			</result>
+			<result name="editView">/WEB-INF/pages/purchaserece.jsp</result>
+			<result name="addView">/WEB-INF/pages/purchaserece.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>	
+	<!-- 采购退货管理 -->
+	<action name="purchasereturn_*" method="{1}" class="com.cisoft.action.PurchasereturnAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView" type="json">
+			    <param name="root">gys</param>
+			    
+			</result>
+			<result name="editView">/WEB-INF/pages/purchasereturn.jsp</result>
+			<result name="addView">/WEB-INF/pages/purchasereturn.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>	
+		<!--商品信息管理  -->
+		
+	<action name="commodity_*" method="{1}" class="com.cisoft.action.CommodityAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.c_id,
+					rows\[\d+\]\.c_name,
+					rows\[\d+\]\.c_pp,
+					rows\[\d+\]\.c_lx,
+					rows\[\d+\]\.c_jg,
+					rows\[\d+\]\.c_cp,
+					rows\[\d+\]\.gysInfo\.g_id,
+					rows\[\d+\]\.c_ck,
+					rows\[\d+\]\.c_dj,
+					rows\[\d+\]\.c_sj,
+					rows\[\d+\]\.c_sltimg,
+					rows\[\d+\]\.c_spbh
+				</param> 
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/shoppinginfoupdate.jsp</result>
+			<result name="addView">/WEB-INF/pages/shoppinginfoupdate.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="selectlist" type="json">
+				<param name="root">pwdResets</param>
+				<!-- <param name="includeProperties">
+					rows\[\d+\]\.g_id,
+					rows\[\d+\]\.g_name,
+					rows\[\d+\]\.g_lxr,
+					rows\[\d+\]\.g_dh,
+					rows\[\d+\]\.g_address,
+					rows\[\d+\]\.g_cp
+				</param> -->
+			</result>
+			<result name="toupdatebyuser">/WEB-INF/pages/shoppinginfoupdate.jsp</result>
+			<result name="upimg" type="json">
+			    <param name="root">imglist</param>
+			</result>
+			<result name="queryimglist" type="json">
+			     <param name="root">imglist</param>
+			</result>
+			<result name="addCommodityPsuccess" type="json">
+			    <param name="root">sortid</param>
+			</result>
+			<result name="queryspBrandjson" type="json">
+			    <param name="root">domap</param>   
+			</result>
+			<result name="toExpCommoditysuccess">/WEB-INF/pages/commodityTemplate.jsp</result>
+			<result name="downexcelsuccess" type="json">
+			     <param name="root">result</param>
+			</result>
+			<result name="uploadcommditysuccess">/WEB-INF/pages/commodityTemplatesuccess.jsp</result>
+			<result name="doExpertsuccess" type="json">
+			    <param name="root">result</param>
+			</result>
+			<result name="toCommoditySpecpage">
+			    /WEB-INF/pages/commodityspeclistpage.jsp
+			</result>
+			<result name="queryCommodityBindinglistPage">
+			    /WEB-INF/pages/commodityBindinglistPage.jsp
+			</result>
+		</action>
+		
+	<!-- 商品规格管理 -->
+	<action class="com.cisoft.action.CommoditySpecAction" name="commodityspec_*" method="{1}">
+	    <result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/commodityspecinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/commodityspecinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="toupdatebyuser">/WEB-INF/pages/commodityspecinfo.jsp</result>
+	    
+	</action>
+	
+	<!-- 商品图片管理 -->
+	<action name="commodityimg_*" method="{1}" class="com.cisoft.action.CommodityImgAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.ci_id,
+					rows\[\d+\]\.ci_url,
+					rows\[\d+\]\.ci_bz,
+					rows\[\d+\]\.commodity\.c_name
+				</param> 
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/shoppinginfoupdateimg.jsp</result>
+			<result name="addView">/WEB-INF/pages/shoppinginfoupdateimg.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="selectlist" type="json">
+				<param name="root">pwdResets</param>
+				<!-- <param name="includeProperties">
+					rows\[\d+\]\.g_id,
+					rows\[\d+\]\.g_name,
+					rows\[\d+\]\.g_lxr,
+					rows\[\d+\]\.g_dh,
+					rows\[\d+\]\.g_address,
+					rows\[\d+\]\.g_cp
+				</param> -->
+			</result>
+			<result name="toupdatebyuser">/WEB-INF/pages/shoppinginfoupdateimg.jsp</result>
+			<result name="addspecimgsuccess">/WEB-INF/pages/commodityimgsuccess.jsp</result>
+			<result name="queryAlbumsuccess">/WEB-INF/pages/commoditAlbum.jsp</result>
+		</action>
+	<!-- 商品分类管理 -->
+	<action name="csort_*" method="{1}" class="com.cisoft.action.CommoditySortAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/commoditysortinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/commoditysortinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="toupdatebyuser">/WEB-INF/pages/commoditysortinfo.jsp</result>
+		</action>	
+	<!-- 商品属性管理 -->
+	<action name="property_*" method="{1}" class="com.cisoft.action.CommoditypropertyAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/commoditypropertyinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/commoditypropertyinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>		
+	<!-- 商品标签 -->
+	<action name="bq_*" method="{1}" class="com.cisoft.action.CommodityLabelAction">
+			 <result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/commoditylabelinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/commoditylabelinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="toupdatebyuser">/WEB-INF/pages/commoditylabelinfo.jsp</result>
+		</action>	
+		<!-- 商品类型管理 -->
+	<action name="ctype_*" method="{1}" class="com.cisoft.action.CommodityTypeAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/commoditytypeinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/commoditytypeinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="toupdatebyuser">/WEB-INF/pages/commoditytypeinfo.jsp</result>
+			<result name="tospecpage">/WEB-INF/pages/commodityselectspec.jsp</result>
+		</action>	
+	<!-- 商品品牌管理 -->
+	<action name="cbrand_*" method="{1}" class="com.cisoft.action.CommodityBrandAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/commoditybrandinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/commoditybrandinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="toupdatebyuser">/WEB-INF/pages/commoditybrandinfo.jsp</result>
+		</action>	
+		
+	<!-- 商品状态管理 -->
+	<action name="cstatus_*" method="{1}" class="com.cisoft.action.CommodityStatusAction">
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/commoditystatusinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/commoditystatusinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="toupdatebyuser">/WEB-INF/pages/commoditystatusinfo.jsp</result>
+		</action>	
+		<!-- 商品绑定管理 -->
+	    <action name="cbaction_*" method="{1}" class="com.cisoft.action.CommodityBindingAction">
+	        <result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="toAddCommodityBindingPage">
+			    /WEB-INF/pages/commodityBindinginfo.jsp
+			</result>
+	    </action>	
+	
+	
+	
+<!-- 前台管理 -->	
+	<action name="qtuser_*" method="{1}" class="com.cisoft.action.QTUserAction">
+			<result name="qt_success" type="json">
+			    	<param name="root">msg</param>
+			</result>
+			<result name="qt_fail" type="json">
+			    <param name="root">msg</param>
+			</result>
+			<result name="processActivatesuccess">
+			   /WEB-INF/100nn/Registration_jh_success.jsp
+			</result>
+			<result name="processActivatesuccess_2">
+			   	/100nnPc20/grzx/jh_success.jsp
+			</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="forgotuppassword">
+			    	/WEB-INF/100nn/ForgotPassword_update_success.jsp
+			</result>
+			<result name="forgotuppassword_2">
+			    	/100nnPc20/grzx/cz_success.jsp
+			</result>
+			<result name="queryUserInfosuccess">
+			    /100nnPc20/grzx/grzx.jsp
+			</result>
+			<result name="saveUserInfosuccess" type="redirectAction">qtuser_queryUserInfo</result>
+		</action>
+			<!--前台页面 商品管理  -->
+		<action name="qtcommodity_*" method="{1}" class="com.cisoft.action.QTCommodityAction">
+			<result name="commditylist">/WEB-INF/100nn/Supermarket/index.jsp</result>
+			<result name="commodityinfo">/WEB-INF/100nn/cp/l-h-h-s-y.jsp</result>
+			<result name="commodityinfo_1">/100nnPc20/spxx.jsp</result>
+			<result name="commodityinfo_new">/100nnPc20/spxx.jsp</result>
+			<result name="querycommdityListajax" type="json">
+			    <param name="root">commodities</param>
+			</result>
+		</action>
+		<action name="qtcommoditynew_*" method="{1}" class="com.cisoft.action.QTCommodityAction">
+			<result name="commditylist">/100nnPc20/splb.jsp</result>
+			<result name="commodityinfo">/100nnPc20/spxx.jsp</result>
+				<result name="commodityinfo_1">/100nnPc20/spxx.jsp</result>
+		</action>
+		<!-- 后台订单管理 -->
+		<action name="htorder_*" method="{1}" class="com.cisoft.action.htOrdersAction">
+	      <interceptor-ref name="params" />
+	   <interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/orderDetialinfo.jsp</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>
+		<!-- 后台商品订单管理 -->
+		
+		<action name="htorderdetail_*" method="{1}" class="com.cisoft.action.htOrdersDetailAction">
+	      <interceptor-ref name="params" />
+	   <interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/orderDetialinfo.jsp</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>
+		<!-- 后台导出、打印action -->
+		<action name="csv_*" class="com.cisoft.action.CsvAction" method="{1}">
+		    <result name="success" type="json">
+		        <param name="root">url</param>
+		    </result>
+		    <result name="printdatasuccess" type="json">
+		        <param name="root">printlist</param>
+		    </result>
+		</action>
+		<!-- 前台订单管理 -->
+	<action name="order_*" method="{1}" class="com.cisoft.action.OrdersAction">
+	      <interceptor-ref name="params" />
+	        <interceptor-ref name="myqtinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<!-- <param name="includeProperties">
+					total,
+					rows\[\d+\]\.ci_id,
+					rows\[\d+\]\.ci_url,
+					rows\[\d+\]\.ci_bz,
+					rows\[\d+\]\.commodity\.c_name
+				</param>  -->
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/orderinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/orderadd.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="toupdatebyuser">/WEB-INF/pages/orderinfo.jsp</result>
+			<result name="success" type="json">
+			</result>
+			<result name="tojspage">/WEB-INF/100nn/paypal/alipayapi.jsp</result>
+			<result name="qtorders">/WEB-INF/100nn/Supermarket/myorder.jsp</result>
+			<result name="qtorders_v1">/100nnPc20/grzx/orders.jsp</result>
+			<result name="qtorderinfo">/WEB-INF/100nn/Supermarket/orderinfo.jsp</result>
+			<result name="qtorderinfo_1">/100nnPc20/grzx/orderinfo.jsp</result>
+			<result name="queryOrderCommodityDetail" type="json">
+			    <param name="root">ocdetails</param>
+			</result>
+		</action>
+		<action name="orderrecords_*" method="{1}" class="com.cisoft.action.OrdersRecordAction">
+		      <interceptor-ref name="params" />
+		    <interceptor-ref name="myqtinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<!-- <param name="includeProperties">
+					total,
+					rows\[\d+\]\.ci_id,
+					rows\[\d+\]\.ci_url,
+					rows\[\d+\]\.ci_bz,
+					rows\[\d+\]\.commodity\.c_name
+				</param>  -->
+			</result>
+			
+		</action>
+		<!-- 支付action -->
+		<action name="paymentrecords_*" method="{1}" class="com.cisoft.action.PaymentrecordsAction">
+		      <interceptor-ref name="params" />
+		    <interceptor-ref name="myqtinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				<!-- <param name="includeProperties">
+					total,
+					rows\[\d+\]\.ci_id,
+					rows\[\d+\]\.ci_url,
+					rows\[\d+\]\.ci_bz,
+					rows\[\d+\]\.commodity\.c_name
+				</param>  -->
+			</result>
+			<result name="ddzf" type="json">
+			    <param name="root">result</param>
+			</result>
+			<result name="zfcg">
+			    /WEB-INF/100nn/Supermarket/fkcg.jsp
+			</result>
+			
+			<result name="zfbzfsuccess">
+			  /WEB-INF/100nn/paypal/alipayapi.jsp
+			</result>
+			<result name="zfbqrfhsuccess">/WEB-INF/100nn/paypal/fhcg.jsp</result>
+			<result name="zfbqrfherror">/WEB-INF/100nn/paypal/fhsb.jsp</result>
+		</action>
+		<!-- 购物车管理 -->
+		<action name="shoppingcar_*" method="{1}" class="com.cisoft.action.ShoppingCarAction">
+		    <interceptor-ref name="params" />
+		     <interceptor-ref name="myqtinterceptorstack"></interceptor-ref>
+		    <result name="querygwccount" type="json">
+			    <param name="root">c_id</param>
+			</result>
+		    <interceptor-ref name="qtinterceptor"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+				 <param name="includeProperties">
+					total,
+					rows\[\d+\]\.sc_id,
+					rows\[\d+\]\.commodity
+				</param>  
+			</result>
+			<result name="save" type="json">
+				<param name="root">result,msg</param>
+			</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="deletegwc" type="json">
+				<param name="root">result,msg</param>
+			</result>	
+			<result name="querygwclist">
+			    /WEB-INF/100nn/Supermarket/waimaics.jsp
+			</result>
+			<result name="querygwclist_1">
+			    /100nnPc20/grzx/gwc.jsp
+			</result>
+			<result name="qrorder">/WEB-INF/100nn/Supermarket/qrorder.jsp</result>
+			<result name="qrorder_1">100nnPc20/grzx/qrdd.jsp</result>
+		</action>
+		
+		<!--条形码查询接口结束  -->
+		<action name="BsdtAddWS_*"
+			class="com.cisoft.jk.bsdtWebServices" method="{1}">
+			<result name="success" type="json" />
+		</action>
+		
+		<!-- 微信接口开始 -->
+		<action name="Interface_*" class="com.cisoft.action.InterfaceAction" method="{1}">
+		    <result name="success" type="json" />
+		    <result name="interface_splb" type="redirectAction">Wxselect_quyercommoditylist?queryXmlDoc=${queryXmlDoc}&amp;returnIdentification=${returnIdentification}</result>
+		</action>
+		
+		<action name="Wxselect_*" class="com.cisoft.action.WxSelectAction" method="{1}">
+		    <result name="success" type="json"></result>
+		</action>
+		
+		<!-- 微信版开始 -->
+		<!-- 首页、商品列表、商品详细页面 -->
+		<action name="wxcommodity_*" class="com.cisoft.action.WXCommodityAction"  method="{1}">
+		    <result name="wxcommditylist">/100nnwx/wx_index.jsp</result>
+		    <result name="wxcommodityinfo">/100nnwx/wxGoodsDetails.jsp</result>
+		    <result name="wxcommodityinfoxx">/100nnwx/wxGoodsDetails_productParameters.jsp</result>
+		    <result name="querywxcommdityListajax" type="json">
+		       <param name="root">commoditylist</param>
+		    </result>
+		    <result name="returnlist" type="redirectAction">wxcommodity_querycommdityList</result>
+		</action>
+		
+		<!-- 收货地址管理 -->
+		<action name="wxuseraddress_*" class="com.cisoft.action.WxUseraddressAction" method="{1}">
+		    <result name="list">/100nnwx/wxUserAddress.jsp</result>
+		    <result name="addpage">/100nnwx/wxAddUserAddress.jsp</result>
+		    <result name="success" type="json">
+		        <param name="root">result,id</param>
+		    </result>
+		    <result name="delete" type="json">
+		        <param name="root">result</param>
+		    </result>
+		    <result name="editView">/100nnwx/wxUpdateUserAddress.jsp</result>
+		    <result name="returnlist"  type="redirectAction">wxuseraddress_getList</result>
+		    <result name="xzuseraddress">/100nnwx/wxXZUserAddress.jsp</result>
+		    <result name="touserinfo">/100nnwx/wxSecurityCenter.jsp</result>
+		</action>
+		<!-- 购物车 -->
+		<action name="wxshoppingcar_*" class="com.cisoft.action.wxShoppingCarAction" method="{1}">
+		    <result name="list">/100nnwx/wxShoppingCart.jsp</result>
+		    <result name="qrorder">/100nnwx/wxOrderConfirmation.jsp</result>
+		    <result name="save" type="json">
+		      <param name="root">msg,result</param>
+		    </result>
+		    <result name="returnlist" type="redirectAction">wxshoppingcar_getList</result>
+		    <result name="addgwc" >/towxpage.jsp</result>
+		</action>
+		<!-- 我的订单 -->
+		<action name="wxorders_*" class="com.cisoft.action.wxOrdersAction" method="{1}">
+		    <result name="list">/100nnwx/wxMyOrder.jsp</result>
+		    <result name="qtorderinfo">/100nnwx/wxOrderDetails.jsp</result>
+		    <result name="returnlist" type="redirectAction">wxorders_getList</result>
+		    <result name="tojspage">/100nnwx/wappaypal/index.jsp</result>
+		    <result name="updatepwd" type="json">
+		          <param name="root">result</param>
+		    </result>
+		</action>
+		<!-- 确认订单 -->
+		<action name="wxpaymentrecords_*" class="com.cisoft.action.wxPaymentrecordsAction" method="{1}">
+		   <!-- 跳转wap版支付宝接口首页 -->
+			<result name="zfbzfsuccess">
+			  /100nnwx/wappaypal/index.jsp
+			</result>
+			<result name="zfbqrfhsuccess">/100nnwx/paypal/fhcg.jsp</result>
+			<result name="success" type="json">
+		          <param name="root">result</param>
+		    </result>
+		</action>
+		<!-- wap 手机网站支付  确认订单 -->
+		<action name="wxPayWap_*" class="com.cisoft.action.wxPayWap" method="{1}">
+		    
+		</action>
+		<!-- 微信接口 -->
+		<action name="wxdevelop_*" class="com.cisoft.weixin.WeixinDevelop" method="{1}">
+		    <result name="gwclist" type="redirectAction">wxshoppingcar_getList?bsid=${state}</result>
+		    <result name="ddlist" type="redirectAction">wxorders_getList?bsid=${state}</result>
+		    <result name="dzlist" type="redirectAction">wxuseraddress_getList?bsid=${state}</result>
+		    <result name="addgwc" type="redirectAction">wxshoppingcar_save?bsid=${state}</result>
+		    <result name="toindex" type="redirectAction">wxcommodity_querycommdityList?bsid=${state}</result>
+		    <result name="togrzx" type="redirectAction">wxuseraddress_touserinfo?bsid=${state}</result>
+		     <result name="towxinfo" type="redirectAction">wxdevelop_queryWxUserInfo?state=${state}</result>
+		       <result name="yzgz" type="json">
+		          <param name="root">code</param>
+		    </result>
+		</action>
+		
+			<action name="payment_*" class="com.cisoft.action.PaymentAction" method="{1}">
+		   <!-- 缴费管理action -->
+			<result name="addsuccess">/100nnPayment/alipayapi.jsp</result>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="paymentDetailsuccess">/100nnPayment/paymentdetail.jsp</result>
+			<result name="success" type="json">
+		          <param name="root">result</param>
+		    </result>
+		</action>
+		<!-- 熙软电商平台  用户意见信息 -->
+		<action name="cisoft_*" method="{1}" class="com.cisoft.action.CisoftPtAction">
+		      
+			<result name="success" type="json">
+			     <param name="root">code</param>
+			</result>
+		</action>
+		
+		<!-- 日志管理 -->
+		<action name="ol_*" method="{1}" class="com.cisoft.action.OperationLogAction">
+		    <interceptor-ref name="params" />
+	   		<interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+		</action>
+		
+		<!-- 模版管理 -->
+			<action name="templad_*" method="{1}" class="com.cisoft.action.TemplateAction">
+		    <interceptor-ref name="params" />
+	   		<interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/templ/templateinfo.jsp</result>
+			<result name="addView">/WEB-INF/templ/templateinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="zxbjsuccess">/WEB-INF/templ/zxbj.jsp</result>
+			<result name="savembsuccess" type="json">
+			    <param name="root">result</param>
+			</result>
+		</action>
+			
+				<!-- 模版标签管理 -->
+			<action name="templabel_*" method="{1}" class="com.cisoft.action.TemplateLabelAction">
+		    <interceptor-ref name="params" />
+	   		<interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/templ/templatelabelinfo.jsp</result>
+			<result name="addView">/WEB-INF/templ/templatelabelinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="zxbjsuccess">/WEB-INF/templ/zxbjlabel.jsp</result>
+			<result name="savembsuccess" type="json">
+			    <param name="root">result</param>
+			</result>
+		</action>
+		 <!-- 页面布局记录 -->
+		 <action name="pagelayout_*" method="{1}" class="com.cisoft.action.PageLayoutAction">
+		    <interceptor-ref name="params" />
+	   		<interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/templ/pagelayoutinfo.jsp</result>
+			<result name="addView">/WEB-INF/templ/pagelayoutinfo.jsp</result>
+			<result name="updatepwd" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="savembsuccess" type="json">
+			    <param name="root">result</param>
+			</result>
+			<result name="selecttemplelablesuccess">
+			    /WEB-INF/templ/templatelabelselect.jsp
+			</result>
+			<result name="ylpagesuccess">
+			      /WEB-INF/templ/yltemplate.jsp
+			</result>
+		</action>
+		
+		 <action name="merchantinfo_*" method="{1}" class="com.cisoft.action.MerchantInfoAction">
+		    <interceptor-ref name="params" />
+	   		<interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/merchantaddinfo.jsp</result>
+			<result name="addView">/WEB-INF/pages/merchantaddinfo.jsp</result>
+			<result name="todoaddlogin">/WEB-INF/pages/addmerchantlogin.jsp</result>
+			<result name="queryloginlist">/WEB-INF/pages/merchantloginlist.jsp</result>
+		</action>
+		<action name="membershipgrade_*" method="{1}" class="com.cisoft.action.MembershipGradeAction">
+		    <interceptor-ref name="params" />
+	   		<interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/membershipGradeinfo.jsp</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>
+		<action name="member_*" method="{1}" class="com.cisoft.action.MemberAction">
+		    <interceptor-ref name="params" />
+	   		<interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="editView">/WEB-INF/pages/memberinfo.jsp</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="doimportsuccess">/WEB-INF/pages/MemberTemplate.jsp</result>
+			<result name="dosavemembersucess">/WEB-INF/pages/MemberImport.jsp</result>
+			<result name="domemsuccess">/WEB-INF/pages/MemberOrders.jsp</result>
+		</action>
+		<!-- 支付管理 -->
+		 <action name="payman_*" method="{1}" class="com.cisoft.action.PaymentManagementAction">
+		    <interceptor-ref name="params" />
+	   		<interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="addView">/WEB-INF/pages/paymaninfo.jsp</result>
+			<result name="editView">/WEB-INF/pages/paymaninfo.jsp</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>
+			<!-- 商家支付管理 -->
+		 <action name="mpay_*" method="{1}" class="com.cisoft.action.MerchantPayAction">
+		    <interceptor-ref name="params" />
+	   		<interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="addView">/WEB-INF/pages/mpayinfo.jsp</result>
+			<result name="editView">/WEB-INF/pages/mpayinfo.jsp</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>
+		<!-- 商家服务管理 -->
+		 <action name="mserac_*" method="{1}" class="com.cisoft.action.MerchantServicesAction">
+		    <interceptor-ref name="params" />
+	   		<interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="addView">/WEB-INF/pages/merchantservicesinfo.jsp</result>
+			<result name="editView">/WEB-INF/pages/merchantservicesinfo.jsp</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="tree" type="json">
+				<param name="root">menutrees</param>
+			</result>
+		</action>
+		<!-- 商家等级管理 -->
+		 <action name="mclass_*" method="{1}" class="com.cisoft.action.MerchantClassAction">
+		    <interceptor-ref name="params" />
+	   		<interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="addView">/WEB-INF/pages/merchantclassinfo.jsp</result>
+			<result name="editView">/WEB-INF/pages/merchantclassinfo.jsp</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+			<result name="getLimitByRoleid" type="json">
+				<param name="root">menuss</param>
+				<param name="includeProperties">
+					\[\d+\]\.id,
+					\[\d+\]\.parentid
+				</param>
+			</result>
+			<result name="savelimit" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<!-- 商家对账管理 -->
+		<action name="reconciliation_*" method="{1}" class="com.cisoft.action.ReconciliationAction">
+		    <interceptor-ref name="params" />
+	   		<interceptor-ref name="myinterceptorstack"></interceptor-ref>
+			<result name="list" type="json">
+				<param name="root">pageResponse</param>
+			</result>
+			<result name="save" type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="delete" type="json">
+				<param name="root">result</param>
+			</result>	
+		</action>
+		
+	</package>
+</struts>

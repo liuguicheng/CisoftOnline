@@ -1,0 +1,150 @@
+@charset "utf-8";
+/* CSS Document */
+#Mian{
+	width:100%;
+	min-height:400px;
+}
+#MianRight{
+	width:100%;
+	min-height:300px;
+	float:left;
+	display:inline;
+	border-top:#d5d5d5 solid 1px;
+}
+#MianRight_mian{
+	width:100%;
+	height:5px;
+	background:#FFF;
+	overflow:auto;
+}
+.MianRight_mianT{
+	width:98%;
+	/*height:300px;*/
+	margin:0 auto 0;
+	padding-top:10px;
+}
+.MianRight_mianTitle{
+	width:100%;
+	height:32px;
+	line-height:32px;
+	font-size:16px;
+	font-weight:bold;
+}
+.MianRight_mianTitle_userNav{
+	width:100%;
+	height:31px;
+	line-height:31px;
+	background:#f6f6f6;
+	border-bottom:#74a702 solid 1px;
+}
+.MianRight_mianTitle_userNavTitle{
+	width:90px;
+	height:31px;
+	line-height:31px;
+	text-align:center;
+	display:inline;
+	float:left;
+	background:#74a702;
+	color:#FFF;
+}
+.MianRight_mianTitle_userNavTitle a{
+	display:block;
+	width:90px;
+	height:31px;
+	line-height:31px;
+	text-align:center;
+	background:#f2f6f7;
+}
+.MianRight_mianTitle_userNavTitle a:link{
+	color:#5b8400;
+	text-decoration:none;
+}
+.MianRight_mianTitle_userNavTitle a:visited{
+	color:#5b8400;
+	text-decoration:none;
+}
+.MianRight_mianTitle_userNavTitle a:hover{
+	color:#FFF;
+	text-decoration:none;
+	background:#8bcc00;
+}
+.MianRight_mianTitle_userNavK{
+	width:1px;
+	height:12px;
+	line-height:12px;
+	display:inline;
+	float:left;
+	background:#a9a2a2;
+	margin-top:10px;
+}
+.MianRight_mianN{
+	width:100%;
+}
+.MianRight_mianN table{
+	margin-top:10px;
+}
+.MianRight_mianN table tr td{
+	height:36px;
+	padding:10px 0;
+}
+.MianRight_mianN_td1{
+	text-align:right;
+}
+.MianRight_mianN_td2{
+	width:304px;
+	height:34px;
+	border:#d3d3d3 solid 1px;
+}
+.MianRight_mianN_td2 input{
+	border:0;
+	width:302px;
+	height:32px;
+}
+.MianRight_mianN_td3{
+	height:15px;
+	line-height:15px;
+	padding-left:10px;
+}
+.MianRight_mianN_td3Left{
+	width:16px;
+	height:15px;
+	float:left;
+	background:url(../images/x_ico.png) no-repeat;
+}
+.MianRight_mianN_td3Left1{
+	width:16px;
+	height:15px;
+	float:left;
+	background:url(../images/g_ico.png) no-repeat;
+}
+.MianRight_mianN_td3Right{
+	width:60px;
+	height:15px;
+	line-height:15px;
+	float:left;
+	text-align:center;
+	color:#949494;
+}
+.MianRight_mianN_td4{
+	width:100px;
+	height:21px;
+	padding-left:10px;
+}
+.MianRight_mianN_td4 input{
+	width:100px;
+	height:21px;
+	border:0;
+	background:url(../images/button.jpg) no-repeat;
+}
+.MianRight_mianN_td5{
+	width:100px;
+	height:21px;
+	padding-left:10px;
+}
+.MianRight_mianN_td5 input{
+	width:100px;
+	height:21px;
+	border:0;
+	background:url(../images/button.jpg) no-repeat;
+	color:#929292;
+}

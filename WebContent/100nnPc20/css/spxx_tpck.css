@@ -1,0 +1,27 @@
+@charset "utf-8";
+body {font:12px "Arial","Verdana",sans-serif;}
+body,ul,li,p,h2,h3,span,form,table,td,img,div,input{margin:0;padding:0;border:0;}
+div,p{display:block;}
+ul,li{list-style:none;}
+button{ cursor:pointer; }
+a{text-decoration:none;color:#114477}
+.clear{clear:both;}
+
+#body{width:400px;margin:20px auto}
+
+#con{clear:both}
+
+
+/*Gpic*/
+.Gpic{width:300px;height:412px;padding-top:5px; position:relative; margin:0 auto;}
+.cxpng{ position:absolute; left:7px; top:10px; z-index:100;}
+.Gpic .pic{width:298px; padding:10px 0;height:337px;position:relative;text-align:center;}
+.Gpic .pic img{width:213px; height:317px; margin:0 auto;}
+
+.Xgt{width:300px;height:68px;float:left;padding:9px 0 0 0}
+.Xgt .Al{width:23px;height:68px;float:left; margin-left:2px; display:inline; }
+.Xgt .zgt{width:249px; margin-left:1px;float:left;overflow:hidden; margin-top:2px;}
+.Xgt .zgt ul{width:1000px}
+.Xgt .zgt li{width:56px;float:left;height:68px; margin-right:6px;}
+.Xgt .zgt li img{width:54px;height:54px;float:left;border:1px solid #9c9c9c;}
+.Xgt .Ar{width:23px;height:68px;float:left;}

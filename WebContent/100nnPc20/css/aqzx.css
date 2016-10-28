@@ -1,0 +1,121 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+
+/*中部开始*/
+
+.content_con{
+	width:1002px;
+	height:460px;
+	margin:0 auto;
+	padding-top:60px;
+}
+
+.content_con_a{
+	width:1002px;
+	height:35px;
+	line-height:35px;
+	margin:0 auto;
+	padding-bottom:20px;
+}
+.content_con_a1{
+	float:left;
+	width:39%;
+	height:35px;
+	line-height:35px;
+	text-align:right;
+	color:#404040;
+	font-size:12px;
+	font-family:"宋体";
+	padding-right:1%;
+}
+.content_con_a2{
+	float:left;
+	width:20%;
+	height:35px;
+	line-height:35px;
+}
+.content_con_a2 input{
+	width:174px;
+	height:28px;
+	border:1px solid #d3d3d3;
+	padding-left:10px;
+	color:#949494;
+}
+
+.content_con_a2 input:focus { 
+    outline: none;
+    border:1px solid #ffa300;
+}
+.content_con_a3{
+	float:left;
+	width:40%;
+	height:35px;
+	line-height:35px;
+}
+.wk_t{
+	float:left;
+	width:20px;
+}
+.wk_k{
+	float:left;
+	color:#949494;
+	font-size:12px;
+	font-family:"宋体";
+}
+.wk_d{
+	float:left;
+	padding-top:5px;
+}
+.zz1{
+	width:107px;
+}
+.zz2{
+	width:107px;
+	color:#939393;
+	text-align:center;
+}
+
+.content_con_b{
+	width:1002px;
+	margin:0 auto;
+	padding-top:5px;
+}
+.bc{
+	width:121px;
+	height:38px;
+	margin:0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
